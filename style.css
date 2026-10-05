@@ -247,12 +247,14 @@ row wrap = campos lado a lado, quebrando linha quando falta espaço
     cursor: pointer;
 }
 .lateral{
-    width: 250px;
+    width: 260px;
     height: 100%;
     left: 0;
     top: 0;
     display: flex;
     flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
 }
 .avisoCadastro{
     margin-top: 10px;
