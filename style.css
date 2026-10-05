@@ -1,3 +1,6 @@
+/* ===== RESET =====
+zera margens/paddings, box-sizing border-box (largura inclui borda e padding,
+evita cálculos surpresa) e define a fonte padrão */
 *{
     margin: 0;
     padding: 0;
@@ -5,12 +8,16 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 body{
-    background-color: #060d1b;
+    background-color: #060d1b; /* fundo escuro do tema dark */
 }
+/* ===== LAYOUT GERAL =====
+   .geral usa flex em linha: menu lateral (250px) + conteúdo à direita */
 .geral{
     display: flex;
     flex-direction: row;
 }
+/* ===== MENU LATERAL =====
+   column = botões empilhados verticalmente; gap dá espaçamento uniforme */
 .menu-lateral{
     padding: 20px;
     margin: 8px;
@@ -44,6 +51,9 @@ body{
     align-items: center;
     gap: 10px;
 }
+/* ===== CONTEÚDO (PAINEL) =====
+flex: 1 faz a área ocupar TODO o espaço restante ao lado do menu
+(é isso que empurra o painel para preencher a tela) */
 .home{
     flex: 1;
     gap: 10px;
@@ -65,6 +75,8 @@ body{
     color: #b2c6e9;
     font-size: 12px;
 }
+/* ===== CARDS DE RESUMO =====
+   row nowrap = 4 cards lado a lado sem quebrar linha, space-between separa eles */
 .resumo{
     margin-top: 10px;
     width: 100%;
@@ -102,6 +114,9 @@ body{
     align-items: start;
     gap: 5px;
 }
+/* ===== TABELA DE PRODUTOS =====
+painelProdutos é a "caixa" que envolve cabeçalho + lista
+overflow: hidden evita que conteúdo vaze das bordas arredondadas */
 .painelProdutos{
     width: 100%;
     min-height: 273px;
@@ -126,6 +141,10 @@ body{
     color: #b2c6e9;
     font-size: 22px;
 }
+/* ===== CABEÇALHO DA TABELA =====
+grid-template-columns com frações (fr): cada coluna recebe uma "fatia" da largura.
+O MESMO template é usado nas linhas (.linhaProduto) para tudo ficar alinhado.
+A última coluna (2.1fr) é maior de propósito: cabe os 4 botões de ação. */
 .headTabela{
     border-top: 1px solid #596675;
     border-bottom: 1px solid #596675;
@@ -146,6 +165,7 @@ body{
     font-size: 11px;
     text-align: center;
 }
+/* ===== CARD DE CADASTRO (barra lateral) ===== */
 .cadastrarProduto{
     background-color: #060f23;
     border: 1px solid #596675;
@@ -172,6 +192,9 @@ body{
     color: #fff;
     font-size: 18px;
 }
+/* ===== FORMULÁRIO =====
+row wrap = campos lado a lado, quebrando linha quando falta espaço
+(base responsiva: em telas pequenas cada campo vira uma linha cheia) */
 .formulario{
     padding: 10px;
     width: 100%;
@@ -182,6 +205,8 @@ body{
     align-items: center;
     gap: 10px;
 }
+/* flex: 1 1 150px = cresce, encolhe e tem base mínima de 150px
+   (definir o tamanho base é o que permite o campo quebrar de linha sozinho) */
 .caixaFormulario{
     flex: 1 1 150px;
     min-width: 140px;
@@ -235,7 +260,14 @@ body{
     font-style: italic;
     color: #b2c6e9;
     font-size: 12px;
+    text-align: center;
 }
+/* ===== POPUP (OVERLAY) =====
+containerPaiSpam = camada escura. display: none esconde por padrão;
+a classe .active (adicionada pelo JS) liga o display: flex.
+position: fixed + inset: 0 = cobre a tela inteira, independente do scroll.
+z-index alto garante que fique por cima de tudo.
+rgba(0,0,0,0.72) = fundo escuro semi-transparente (72% opaco). */
 .containerPaiSpam{
     display: none;
 }
@@ -252,6 +284,10 @@ body{
     background-color: rgba(0, 0, 0, 0.72);
 }
 
+/* ===== CAIXA BRANCA DO POPUP =====
+width: min(900px, 100%) = no máximo 900px, mas nunca maior que a tela
+max-height: 90vh + overflow-y: auto = se o conteúdo for muito alto,
+o popup rola por dentro em vez de estourar a tela (importante no celular) */
 .spamDeCadastro {
     border: 1px solid #596675;
     border-radius: 12px;
@@ -266,6 +302,8 @@ body{
     flex-direction: column;
 }
 
+/* clamp(20px, 3vw, 28px) = fonte fluida: nunca abaixo de 20px,
+   nunca acima de 28px, e acompanha 3% da largura da tela no meio */
 .spamDeCadastro h1{
     color: #b2c6e9;
     font-weight: bold;
@@ -301,6 +339,8 @@ body{
     background-color: #b63c32;
     cursor: pointer;
 }
+/* ===== MENSAGENS DE FEEDBACK =====
+   display: none por padrão; .active liga (mesma lógica do popup) */
 .avisoNãoCadastro{
     display: none;
 }
@@ -323,12 +363,16 @@ body{
     color: #00be7f;
     font-size: 12px;
 }
+/* ===== LISTA DE PRODUTOS ===== */
 .listaProdutos {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
+/* ===== LINHA DA TABELA =====
+   grid com o MESMO template do .headTabela — é isso que alinha
+   cada célula com a coluna correspondente do cabeçalho */
 .linhaProduto {
     display: grid;
     grid-template-columns: 0.45fr 1.3fr 1fr 1fr 0.9fr 0.9fr 0.8fr 2.1fr;
@@ -338,6 +382,8 @@ body{
     padding: 6px 0;
 }
 
+/* overflow-wrap: anywhere = se o nome do produto for muito longo,
+   ele quebra dentro da célula em vez de estourar a tabela */
 .celulaProduto{
     min-width: 0;
     padding: 4px;
@@ -356,6 +402,10 @@ body{
     font-size: 13px;
     text-align: center;
 }
+/* ===== ETIQUETA DE STATUS =====
+   border-radius: 999px = formato de "pílula" (totalmente arredondado)
+   Cada status (normal/baixo/zerado) tem fundo e cor próprios, com
+   cores translúcidas para combinar com o tema escuro */
 .etiquetaStatus{
     display: inline-block;
     padding: 4px 9px;
@@ -375,6 +425,8 @@ body{
     background: rgba(233, 30, 47, 0.16);
     color: #ff6571;
 }
+/* ===== BOTÕES DE AÇÃO (linha do produto) =====
+   wrap = em telas estreitas os botões quebram de linha em vez de sumir */
 .acoesProduto{
     display: flex;
     justify-content: center;
@@ -401,7 +453,7 @@ body{
     background: #a92736;
 }
 .acoesProduto button:hover{
-    filter: brightness(1.2);
+    filter: brightness(1.2); /* efeito de "clarear" no hover, mais simples que trocar cor */
 }
 .quantidadeResumo{
     font-size: 20px;
@@ -409,6 +461,12 @@ body{
     color: #fff;
 }
 
+/* ===== RESPONSIVIDADE ===== */
+
+/* ≤1050px (tablets e notebooks menores):
+   o layout de duas colunas (menu + painel) não cabe mais.
+   Então o .geral vira COLUNA: menu fica em cima e o painel embaixo.
+   O menu vira uma barra horizontal com os botões lado a lado. */
 @media (max-width: 1050px){
     .geral{
         flex-direction: column;
@@ -436,6 +494,13 @@ body{
     }
 }
 
+/* ≤760px (celulares):
+   Os cards de resumo não cabem 4 em linha → viram 2 por linha
+   (calc(50% - 5px) = metade da largura menos o espaço do gap).
+   As imagens dos cards diminuem para 60px.
+   A tabela NÃO encolhe: painelProdutos ganha overflow-x: auto e
+   cabeçalho/linhas ganham min-width: 850px, então a tabela rola
+   horizontalmente dentro da caixa em vez de esmagar as colunas. */
 @media (max-width: 760px){
     .home{
         padding: 12px;
@@ -465,6 +530,9 @@ body{
     }
 }
 
+/* ≤480px (celulares pequenos):
+   popup com menos padding, campos do formulário ocupam a linha inteira
+   (flex-basis: 100%) e os cards de resumo viram 1 por linha (100%). */
 @media (max-width: 480px){
     .spamDeCadastro{
         padding: 18px 12px;

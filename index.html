@@ -3,12 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- viewport: garante que a página se adapte a telas menores (essencial para o responsivo funcionar) -->
         <title>EstoquePro</title>
         <link rel="stylesheet" href="style.css">
-        <link rel="" href="">
     </head>
     <body>
         <div class="geral">
+            <!-- ===== MENU LATERAL: barra fixa de navegação ===== -->
             <div class="lateral">
                 <div class="menu-lateral">
                     <img src="img/logo.png" alt="Logo do Sistema de Estoque" class="logo">
@@ -16,56 +17,71 @@
                     <button class="menu-button" ><img src="img/products.png">Produtos</button>
                     <button class="movimentações"><img src="img/movements.png">  Movimentações</button>
                 </div>
-                    <div class="cadastrarProduto">
-                        <div class="headCadastrarProduto">
-                            <h2>Cadastrar Produto</h2>
-                        </div>
-                        
+
+                <!-- Card que abre o popup de cadastro -->
+                <div class="cadastrarProduto">
+                    <div class="headCadastrarProduto">
+                        <h2>Cadastrar Produto</h2>
+                    </div>
+                    <!-- onclick="cadastrarProduto()" chama a função do JS que abre o modal -->
                     <button class="botaoCadastrar" id="botaoCadastrarProduto" onclick="cadastrarProduto()">Cadastrar Produto</button>
                     <p class="avisoCadastro">Clique para cadastrar um novo produto</p>
                 </div>
             </div>
+
+            <!-- ===== POPUP DE CADASTRO/EDIÇÃO =====
+                 containerPaiSpam = camada escura que cobre a tela (overlay)
+                 spamDeCadastro = caixa branca centralizada com o formulário -->
             <div id="spamDeCadastro" class="containerPaiSpam">
-                <div  class="spamDeCadastro">
-                        <h1 id="tituloFormulario">CADASTRO DE PRODUTO</h1>
-                        <div class="formulario">
-                            <div class="caixaFormulario">
+                <div class="spamDeCadastro">
+                    <!-- tituloFormulario é alterado pelo JS: "CADASTRO" ou "EDITAR" -->
+                    <h1 id="tituloFormulario">CADASTRO DE PRODUTO</h1>
+
+                    <div class="formulario">
+                        <div class="caixaFormulario">
                             <p>Nome do Produto *</p>
                             <input type="text" placeholder="Nome do Produto" id="nomeProduto">
-                            </div>
-                            <div class="caixaFormulario">
+                        </div>
+                        <div class="caixaFormulario">
                             <p>Código do Produto *</p>
                             <input type="text" placeholder="Código do Produto" id="codigoProduto">
-                            </div>
-                            <div class="caixaFormulario">
+                        </div>
+                        <div class="caixaFormulario">
                             <p>Categoria do Produto *</p>
                             <input type="text" placeholder="Categoria do Produto" id="categoriaProduto">
-                            </div>
-                            <div class="caixaFormulario">
+                        </div>
+                        <div class="caixaFormulario">
                             <p>Quantidade do Produto *</p>
-                            <input type="number" placeholder="Quantidade do Produto" id="quantidadeProduto" min="0" step="1">
-                            </div>
-                            <div class="caixaFormulario">
+                            <input type="number" placeholder="Quantidade do Produto" id="quantidadeProduto">
+                        </div>
+                        <div class="caixaFormulario">
                             <p>Preço do Produto (R$) *</p>
-                            <input type="number" placeholder="Preço do Produto" id="precoProduto" min="0.01" step="0.01">
-                            </div>
+                            <input type="number" placeholder="Preço do Produto" id="precoProduto">
                         </div>
-                        <div class="botoesCadastro">
-                            <button class="botaoCadastrar" id="confirmarCadastro" onclick="confirmarCadastro()">Confirmar Produto</button>
-                            <button class="botaoFecharCadastro" id="botaoFecharCadastro" onclick="fecharSpamCadastro()">Fechar Cadastro</button>
-                        </div>
-                        <p class="avisoCadastro">Clique para confirmar o Cadastro</p>
-                        <p class="avisoNãoCadastro" id="avisoNãoCadastro">Preencha todos os campos. A quantidade deve ser um número inteiro igual ou maior que zero e o preço deve ser maior que zero.</p>
-                        <p class="avisoCadastroSucesso" id="avisoCadastroSucesso">Cadastro Feito com Sucesso</p>
+                    </div>
+
+                    <div class="botoesCadastro">
+                        <!-- Envia o formulário (cadastra ou salva edição) -->
+                        <button class="botaoCadastrar" id="confirmarCadastro" onclick="confirmarCadastro()">Confirmar Produto</button>
+                        <!-- Fecha o popup sem salvar -->
+                        <button class="botaoFecharCadastro" id="botaoFecharCadastro" onclick="fecharSpamCadastro()">Fechar Cadastro</button>
+                    </div>
+
+                    <!-- Mensagens de feedback: erro (vermelha) e sucesso (verde) -->
+                    <p class="avisoNãoCadastro" id="avisoNãoCadastro">Preencha todos os campos. A quantidade deve ser um número inteiro igual ou maior que zero e o preço deve ser maior que zero.</p>
+                    <p class="avisoCadastroSucesso" id="avisoCadastroSucesso">Cadastro Feito com Sucesso</p>
                 </div>
             </div>
+
+            <!-- ===== PAINEL PRINCIPAL ===== -->
             <div class="home">
                 <header>
-                <p class="tituloPainel">PAINEL</p>
-                <h1 class="bemVindo">Bem-vindo ao EstoquePro</h1>
-                <p class="resumoEstoque">Aqui está um resumo do seu estoque</p>
+                    <p class="tituloPainel">PAINEL</p>
+                    <h1 class="bemVindo">Bem-vindo ao EstoquePro</h1>
+                    <p class="resumoEstoque">Aqui está um resumo do seu estoque</p>
                 </header>
 
+                <!-- Cards de resumo: os números são preenchidos pelo JS (atualizarResumo) -->
                 <div class="resumo">
                     <div class="totalDeProdutos">
                         <img src="img/totalProdutos.png">
@@ -97,11 +113,14 @@
                     </div>
                 </div>
 
+                <!-- ===== TABELA DE PRODUTOS ===== -->
                 <div class="painelProdutos">
                     <div class="headProdutos">
                         <img src="img/products.png" alt="Ícone de Produtos">
                         <h2>Produtos</h2>
                     </div>
+
+                    <!-- Cabeçalho: grid com as MESMAS 8 colunas das linhas (0.45fr 1.3fr 1fr 1fr 0.9fr 0.9fr 0.8fr 2.1fr) -->
                     <div class="headTabela">
                         <div class="coluna">ID</div>
                         <div class="coluna">Nome</div>
@@ -112,12 +131,13 @@
                         <div class="coluna">Status</div>
                         <div class="coluna">Ações</div>
                     </div>
-                    <div class="caixaProdutos" id="produtos">
 
-                    </div>
+                    <!-- As linhas dos produtos são criadas pelo JS (renderizarProduto) -->
+                    <div class="listaProdutos" id="produtos"></div>
                 </div>
             </div>
         </div>
-    <script src="script.js"></script>
+        <!-- Script carregado no fim: garante que os elementos já existam quando o JS roda -->
+        <script src="script.js"></script>
     </body>
 </html>
